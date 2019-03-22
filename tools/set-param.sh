@@ -26,7 +26,16 @@ VALUE=$(echo "$1" | sed "s/[^>]*=//")
 case $PARAM in
     ip)
         PORT=$(grep "masternodeaddr=" "$BASEDIR/../data/zest.conf" | sed 's/masternodeaddr=//g' | sed 's/^.*://g')
-        TEMP=$(sed "s/masternodeaddr=.*/masternodeaddr=$VALUE:$PORT/g" "$BASEDIR/../data/zest.conf")
+         case $VALUE in 
+            *:*)
+                TEMP=$(sed "s/masternodeaddr=.*/masternodeaddr=[$VALUE]:$PORT/g" "$BASEDIR/../data/zest.conf")
+            ;;
+            *)
+                TEMP=$(sed "s/masternodeaddr=.*/masternodeaddr=$VALUE:$PORT/g" "$BASEDIR/../data/zest.conf")
+            ;;
+        esac
+        #TEMP=$(sed "s/masternodeaddr=.*/masternodeaddr=$VALUE:$PORT/g" "$BASEDIR/../data/zest.conf")
+
         printf "%s" "$TEMP" > "$BASEDIR/../data/zest.conf"
     ;;
     port)
