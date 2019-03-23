@@ -48,7 +48,7 @@ case $PARAM in
         printf "%s" "$TEMP" > "$BASEDIR/../data/zest.conf"
 
         NEW_COMPOSE=$(sed "s/- \".*:22030\"/- \"$VALUE:22030\"/g" "$BASEDIR/../docker-compose.yml")
-        printf "%s" "$NEW_COMPOSE" > "$BASEDIR/../data/docker-compose.yml"
+        printf "%s" "$NEW_COMPOSE" > "$BASEDIR/../docker-compose.yml"
     ;;
     nodeprivkey)
         TEMP=$(sed "s/masternodeprivkey=.*/masternodeprivkey=$VALUE/g" "$BASEDIR/../data/zest.conf")
